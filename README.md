@@ -11,17 +11,22 @@ To be able to use following terraform module please follow the documentation.
 
 
 ## Calling module
-
 Your `main.tf` should look like this
 ```
 module "gke_cluster" {
-    source  = "fuchicorp/gke/google"
-    cluster_name = "tl-cluster"
+    source  = "ada/gke/google"
+    cluster_name = "ada-cluster"
     google_region = "us-central1"
-    google_project_id = "brave-aviary-285822"
+    google_project_id = "ada-project"
     cluster_node_count = "2"
-    cluster_version = "1.15"
-    google_credentials = "./tl-service-account.json" # service account 
+    cluster_version = "1.19"
+    google_credentials = "./ada-service-account.json" # service account 
+    image_type        = "COS"
+    disk_size_in_gb   = "10"
+    gce_ssh_user    = "default-user"
+    labels            = {
+        "label" = "ada-project"
+    }
 }
 ```
 
@@ -47,7 +52,21 @@ For more info, please see the [variables file](?tab=inputs).
 | `cluster_network` |The name or self_link of the Google Compute Engine network to which the cluster is connected. | `(Optional)` | `string` |
 | `cluster_name` | The name of the cluster, unique within the project and location. | `(Required)` | `string` |
 | `machine_type` | The name of a Google Compute Engine machine type. | `(Optional)` | `string` |
+| image_type     | The disk side of each node in the cluster         |  `(Optional)`| `string`  |  
+| labels         | The label of the node in the cluster.             |  `(optional) | `map`| 
+| `auto_upgrade`  |  The autoupgrade of the node in the cluster.     |  `(optional)` |  `string`  |                                         |              |
+| `auto_repair`   |  The autorepair of the node in the cluster.      |  `(optional)` |  `string`  |  
+| `preemptible_nodes`   |  The preemptible  of the node in the cluster. |  `(optional)` |  `string`  | 
+| `node_pool`   |  The name of the node_pool in the cluster.            |  `(optional)` |  `string`  |  
+| `gce_ssh_user`   |  The name of the node_pool in the cluster.            |  `(optional)` |  `string`  |  
+| `gce_ssh_pub_key_file`   |  The name of the node_pool in the cluster.            |  `(optional)` |  `string`  |  
 
-If you have any issues please feel free to submit the issue [new issue](https://github.com/fuchicorp/terraform-google-gke/issues/new) 
+## Output
 
-Developed by FuchiCorp members 
+Use the following output to learn how to ssh to your nodes:
+```
+output "ssh_info"
+```
+
+
+
