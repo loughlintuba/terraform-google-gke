@@ -14,7 +14,7 @@ To be able to use following terraform module please follow the documentation.
 Your `main.tf` should look like this
 ```
 module "gke_cluster" {
-    source  = "ada/gke/google"
+    source  = "loughlintuba/gke/google"
     cluster_name = "ada-cluster"
     google_region = "us-central1"
     google_project_id = "ada-project"
