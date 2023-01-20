@@ -28,5 +28,5 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
-deployment/example/ada-service-account.json
+deployment/example/tiffany-service-account.json
 *test*

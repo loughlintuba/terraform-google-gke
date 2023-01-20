@@ -8,24 +8,31 @@ output "cluster_version" {
   value = data.google_container_engine_versions.cluster_version.latest_node_version
 }
 
+resource "google_service_account" "service_accounts" {
+  account_id   = var.account_id
+  display_name = var.display_name
+  project      = var.google_project_id 
+}
 
-
-resource "google_container_cluster" "create" {
+resource "google_container_cluster" "primary" {
   provider                 = google-beta
   min_master_version       = data.google_container_engine_versions.cluster_version.latest_node_version
   node_version             = data.google_container_engine_versions.cluster_version.latest_node_version
   name                     = var.cluster_name
+  location                 = var.location
+  project                  = var.google_project_id
   network                  = var.cluster_network
   subnetwork               = var.subnetwork
-  location                 = var.google_region
-  project                  = var.google_project_id
-  initial_node_count       = var.initial_node_count
+  remove_default_node_pool = true
+  initial_node_count       = 1
+
 }
 
-resource "google_container_node_pool" "spot_nodes" {
-    name               = "spot-nodes"
+
+resource "google_container_node_pool" "primary_preemptible_nodes" {
+    name               = "my-node-pool"
     node_count         = var.cluster_node_count
-    cluster            = google_container_cluster.create.id
+    cluster            = google_container_cluster.primary.name
     provider           = google-beta
 
     management {
@@ -44,7 +51,11 @@ resource "google_container_node_pool" "spot_nodes" {
       preemptible  = var.preemptible_nodes
       machine_type = var.machine_type
       labels       = var.labels
-      spot         = var.spot_instance
+      service_account = google_service_account.service_accounts.email
+      oauth_scopes    = [
+      "https://www.googleapis.com/auth/cloud-platform",
+      "https://www.googleapis.com/auth/source.read_write"
+    ]
 
       metadata = {
         ssh-keys                 = "${var.gce_ssh_user}:${file(var.gce_ssh_pub_key_file)}"
