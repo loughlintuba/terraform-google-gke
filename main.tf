@@ -34,6 +34,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
     node_count         = var.cluster_node_count
     cluster            = google_container_cluster.primary.name
     provider           = google-beta
+    location                 = var.google_region
 
     management {
       auto_repair  = var.auto_repair
