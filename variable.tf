@@ -82,7 +82,7 @@ variable "auto_repair" {
 
 variable "auto_upgrade" {
   description = "- (Optional) Whether the nodes will be automatically upgraded"
-  default     = false
+  default     = true
 }
 
 variable "node_version" {
