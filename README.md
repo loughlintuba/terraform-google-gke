@@ -24,6 +24,8 @@ module "gke_cluster" {
     image_type        = "COS"
     disk_size_in_gb   = "10"
     gce_ssh_user    = "default-user"
+    account_id         = var.account_id
+    display_name       = var.display_name
     labels            = {
         "label" = "tiffany-project"
     }
