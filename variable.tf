@@ -17,11 +17,6 @@ variable "cluster_node_count" {
   description = "- (Required) Number of nodes for the cluster."
 }
 
-variable "initial_node_count" {
-  type        = string
-  description = "- (Required) Number of default nodes for the cluster."
-  default     = 1
-}
 
 variable "min_desired_count" {
   type        = string
@@ -66,7 +61,7 @@ variable "labels" {
   type        = map
 
   default = {
-    labels = "ada-project"
+    labels = "tiffany-project"
   }
 }
 
@@ -102,13 +97,9 @@ variable "min_master_version" {
 
 variable "preemptible_nodes" {
   description = "- (Optional) Whether to use preemptible nodes"
-  default     = false
+  default     = true
 }
 
-variable "node_pool" {
-  description = "- (Optional) Name of node pool"
-  default     = "default-pool"
-}
 
 variable "gce_ssh_user" {
   description = "- (Optional) ssh user"
@@ -120,8 +111,17 @@ variable "gce_ssh_pub_key_file" {
   default     = "~/.ssh/id_rsa.pub"
 }
 
-variable "spot_instance" {
-  description = "- (Optional) optional for spot instances"
-  default     = "true"
+
+
+variable "account_id" {
+  type        = string
+  description = "Names of the service account to create."
+  default     = ""
 }
+variable "display_name" {
+  type        = string
+  description = "Display names of the service account to create."
+  default     = ""
+}
+
 

@@ -15,17 +15,17 @@ Your `main.tf` should look like this
 ```
 module "gke_cluster" {
     source  = "loughlintuba/gke/google"
-    cluster_name = "ada-cluster"
+    cluster_name = "tiffany-cluster"
     google_region = "us-central1"
-    google_project_id = "ada-project"
+    google_project_id = "tiffany-project"
     cluster_node_count = "2"
     cluster_version = "1.19"
-    google_credentials = "./ada-service-account.json" # service account 
+    google_credentials = "./tiffany-service-account.json" # service account 
     image_type        = "COS"
     disk_size_in_gb   = "10"
     gce_ssh_user    = "default-user"
     labels            = {
-        "label" = "ada-project"
+        "label" = "tiffany-project"
     }
 }
 ```
