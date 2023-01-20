@@ -116,12 +116,12 @@ variable "gce_ssh_pub_key_file" {
 variable "account_id" {
   type        = string
   description = "Names of the service account to create."
-  default     = ""
+  default     = "service_account"
 }
 variable "display_name" {
   type        = string
   description = "Display names of the service account to create."
-  default     = ""
+  default     = "service_account"
 }
 
 

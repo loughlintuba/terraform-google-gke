@@ -19,7 +19,7 @@ resource "google_container_cluster" "primary" {
   min_master_version       = data.google_container_engine_versions.cluster_version.latest_node_version
   node_version             = data.google_container_engine_versions.cluster_version.latest_node_version
   name                     = var.cluster_name
-  location                 = var.location
+  location                 = var.google_region
   project                  = var.google_project_id
   network                  = var.cluster_network
   subnetwork               = var.subnetwork
